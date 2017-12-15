@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ets.mapper.ItemDescribeMapper" >
+  <resultMap id="BaseResultMap" type="com.ets.pojo.ItemDescribe" >
+    <constructor >
+      <idArg column="item_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="item_desc" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="createdtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="updatedtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    item_id, item_desc, createdtime, updatedtime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_item_desc
+    where item_id = #{itemId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from tb_item_desc
+    where item_id = #{itemId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ets.pojo.ItemDescribe" >
+    insert into tb_item_desc (item_id, item_desc, createdtime, 
+      updatedtime)
+    values (#{itemId,jdbcType=BIGINT}, #{itemDesc,jdbcType=VARCHAR}, #{createdtime,jdbcType=TIMESTAMP}, 
+      #{updatedtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ets.pojo.ItemDescribe" >
+    insert into tb_item_desc
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="itemId != null" >
+        item_id,
+      </if>
+      <if test="itemDesc != null" >
+        item_desc,
+      </if>
+      <if test="createdtime != null" >
+        createdtime,
+      </if>
+      <if test="updatedtime != null" >
+        updatedtime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="itemId != null" >
+        #{itemId,jdbcType=BIGINT},
+      </if>
+      <if test="itemDesc != null" >
+        #{itemDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createdtime != null" >
+        #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedtime != null" >
+        #{updatedtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ets.pojo.ItemDescribe" >
+    update tb_item_desc
+    <set >
+      <if test="itemDesc != null" >
+        item_desc = #{itemDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="createdtime != null" >
+        createdtime = #{createdtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatedtime != null" >
+        updatedtime = #{updatedtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where item_id = #{itemId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ets.pojo.ItemDescribe" >
+    update tb_item_desc
+    set item_desc = #{itemDesc,jdbcType=VARCHAR},
+      createdtime = #{createdtime,jdbcType=TIMESTAMP},
+      updatedtime = #{updatedtime,jdbcType=TIMESTAMP}
+    where item_id = #{itemId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ets.mapper.AdminMapper" >
+  <resultMap id="BaseResultMap" type="com.ets.pojo.Admin" >
+    <constructor >
+      <idArg column="ad_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ad_username" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ad_realname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ad_password" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ad_phone" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ad_email" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ad_role" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="ad_state" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ad_id, ad_username, ad_realname, ad_password, ad_phone, ad_email, ad_role, ad_state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_admin
+    where ad_id = #{adId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_admin
+    where ad_id = #{adId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ets.pojo.Admin" >
+    insert into tb_admin (ad_id, ad_username, ad_realname, 
+      ad_password, ad_phone, ad_email, 
+      ad_role, ad_state)
+    values (#{adId,jdbcType=INTEGER}, #{adUsername,jdbcType=VARCHAR}, #{adRealname,jdbcType=VARCHAR}, 
+      #{adPassword,jdbcType=VARCHAR}, #{adPhone,jdbcType=VARCHAR}, #{adEmail,jdbcType=VARCHAR}, 
+      #{adRole,jdbcType=INTEGER}, #{adState,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ets.pojo.Admin" >
+    insert into tb_admin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adId != null" >
+        ad_id,
+      </if>
+      <if test="adUsername != null" >
+        ad_username,
+      </if>
+      <if test="adRealname != null" >
+        ad_realname,
+      </if>
+      <if test="adPassword != null" >
+        ad_password,
+      </if>
+      <if test="adPhone != null" >
+        ad_phone,
+      </if>
+      <if test="adEmail != null" >
+        ad_email,
+      </if>
+      <if test="adRole != null" >
+        ad_role,
+      </if>
+      <if test="adState != null" >
+        ad_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adId != null" >
+        #{adId,jdbcType=INTEGER},
+      </if>
+      <if test="adUsername != null" >
+        #{adUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="adRealname != null" >
+        #{adRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="adPassword != null" >
+        #{adPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="adPhone != null" >
+        #{adPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="adEmail != null" >
+        #{adEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="adRole != null" >
+        #{adRole,jdbcType=INTEGER},
+      </if>
+      <if test="adState != null" >
+        #{adState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ets.pojo.Admin" >
+    update tb_admin
+    <set >
+      <if test="adUsername != null" >
+        ad_username = #{adUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="adRealname != null" >
+        ad_realname = #{adRealname,jdbcType=VARCHAR},
+      </if>
+      <if test="adPassword != null" >
+        ad_password = #{adPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="adPhone != null" >
+        ad_phone = #{adPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="adEmail != null" >
+        ad_email = #{adEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="adRole != null" >
+        ad_role = #{adRole,jdbcType=INTEGER},
+      </if>
+      <if test="adState != null" >
+        ad_state = #{adState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ad_id = #{adId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ets.pojo.Admin" >
+    update tb_admin
+    set ad_username = #{adUsername,jdbcType=VARCHAR},
+      ad_realname = #{adRealname,jdbcType=VARCHAR},
+      ad_password = #{adPassword,jdbcType=VARCHAR},
+      ad_phone = #{adPhone,jdbcType=VARCHAR},
+      ad_email = #{adEmail,jdbcType=VARCHAR},
+      ad_role = #{adRole,jdbcType=INTEGER},
+      ad_state = #{adState,jdbcType=INTEGER}
+    where ad_id = #{adId,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="checkUsername" resultType="int" parameterType="string">
+  	select count(1) from tb_admin where ad_username = #{username}
+  </select>
+  
+  <select id="checkEmail" resultType="int" parameterType="string">
+  	select count(1) from tb_admin where ad_email = #{email}
+  </select>
+  
+  <select id="selectLogin" resultMap="BaseResultMap" parameterType="map">
+  	select 
+  	<include refid="Base_Column_List"/>
+  	from tb_admin
+  	where ad_username = #{username}
+  	and ad_password = #{password}
+  </select>
+  
+</mapper>

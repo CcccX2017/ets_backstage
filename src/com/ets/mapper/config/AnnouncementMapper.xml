@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ets.mapper.AnnouncementMapper" >
+  <resultMap id="BaseResultMap" type="com.ets.pojo.Announcement" >
+    <constructor >
+      <idArg column="an_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="title" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="content" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="ad_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="createtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="updatetime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="state" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    an_id, title, content, ad_id, createtime, updatetime, state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_announcement
+    where an_id = #{anId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_announcement
+    where an_id = #{anId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ets.pojo.Announcement" >
+    insert into tb_announcement (an_id, title, content, 
+      ad_id, createtime, updatetime, 
+      state)
+    values (#{anId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, 
+      #{adId,jdbcType=INTEGER}, now(), now(), 
+      #{state,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ets.pojo.Announcement" >
+    insert into tb_announcement
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="anId != null" >
+        an_id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="adId != null" >
+        ad_id,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="anId != null" >
+        #{anId,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="adId != null" >
+        #{adId,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        now(),
+      </if>
+      <if test="updatetime != null" >
+        now(),
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ets.pojo.Announcement" >
+    update tb_announcement
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="adId != null" >
+        ad_id = #{adId,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+    </set>
+    where an_id = #{anId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ets.pojo.Announcement" >
+    update tb_announcement
+    set title = #{title,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      ad_id = #{adId,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=INTEGER}
+    where an_id = #{anId,jdbcType=INTEGER}
+  </update>
+  
+  <!-- an_id, title, content, ad_id, createtime, updatetime, state -->
+  <!-- <select id="selectSelective" parameterType="com.ets.pojo.Announcement" >
+    select * from tb_announcement
+    <where>
+    	<if test="an_id!=null">
+    		and an_id = #{an_id}
+    	</if>
+    	<if test="an_id!=null">
+    	 	and title = #{title}
+    	</if>
+    	<if test="an_id!=null">
+    		and content = #{content}
+    	</if>
+    	<if test="an_id!=null">
+    		and ad_id = #{ad_id}
+    	</if>
+    	<if test="an_id!=null">
+    		and createtime = #{createtime}
+    	</if>
+    	<if test="an_id!=null">
+    		and updatetime = #{updatetime}
+    	</if>
+    	<if test="an_id!=null">
+    		and state = #{state}
+    	</if>
+    </where>
+  </select> -->
+  
+  <select id="checkTitle" resultType="int"  parameterType="string">
+  	select count(1) from tb_announcement where title=#{title}
+  </select>
+  
+  <resultMap id="selectListMap" type="com.ets.pojo.Announcement" >
+  	<id property="anId" column="an_id"></id>
+	<result property="title" column="title" />
+	<result property="content" column="content" />
+	<result property="adId" column="ad_Id" />
+	<result property="createtime" column="createtime" />
+	<result property="updatetime" column="updatetime" />
+	<result property="state" column="state" />
+	<association property="admin" javaType="com.ets.pojo.Admin">
+		<result property="adUsername" column="ad_username" />
+	</association>
+  </resultMap>
+  <select id="selectList" resultMap="selectListMap">
+  	select a.an_id,a.title,a.createtime,a.updatetime,a.state,b.ad_username
+	from tb_announcement a,tb_admin b
+	where a.ad_id = b.ad_id
+  </select>
+  
+  <select id="selectContentById" resultType="Announcement" parameterType="int">
+  	select content from tb_announcement where an_id = #{id}
+  </select>
+</mapper>

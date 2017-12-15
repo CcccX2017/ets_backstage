@@ -1,4 +1,9 @@
-﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+﻿<%@page import="com.ets.pojo.Admin"%>
+<%@page import="com.ets.common.Const"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%Admin admin = (Admin)session.getAttribute(Const.ADMIN_USERNAME);
+String role = String.valueOf(admin.getAdRole()).equals("3")?"超级管理员":"普通管理员";
+%>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -28,24 +33,23 @@
 				<ul class="cl">
 					<li class="dropDown dropDown_hover"><a href="javascript:;" class="dropDown_A"><i class="Hui-iconfont">&#xe600;</i> 新增 <i class="Hui-iconfont">&#xe6d5;</i></a>
 						<ul class="dropDown-menu menu radius box-shadow">
-							<li><a href="javascript:;" onclick="article_add('添加资讯','article-add.html')"><i class="Hui-iconfont">&#xe616;</i> 资讯</a></li>
-							<li><a href="javascript:;" onclick="picture_add('添加资讯','picture-add.html')"><i class="Hui-iconfont">&#xe613;</i> 图片</a></li>
-							<li><a href="javascript:;" onclick="product_add('添加资讯','product-add.html')"><i class="Hui-iconfont">&#xe620;</i> 产品</a></li>
+							<li><a href="javascript:;" onclick="article_add('添加公告','article-add.html','','510')"><i class="Hui-iconfont">&#xe616;</i> 公告</a></li>
 							<li><a href="javascript:;" onclick="member_add('添加用户','member-add.html','','510')"><i class="Hui-iconfont">&#xe60d;</i> 用户</a></li>
-					</ul>
+							<li><a href="javascript:;" onclick="admin_add('添加管理员','member-add.html','','510')"><i class="Hui-iconfont">&#xe62d;</i> 管理员</a></li>
+						</ul>
 				</li>
 			</ul>
 		</nav>
 		<nav id="Hui-userbar" class="nav navbar-nav navbar-userbar hidden-xs">
 			<ul class="cl">
-				<li>超级管理员</li>
+				<li><%=role%></li>
 				<li class="dropDown dropDown_hover">
-					<a href="#" class="dropDown_A">admin <i class="Hui-iconfont">&#xe6d5;</i></a>
+					<a href="#" class="dropDown_A"><%=admin.getAdUsername()+" "%><i class="Hui-iconfont">&#xe6d5;</i></a>
 					<ul class="dropDown-menu menu radius box-shadow">
 						<li><a href="javascript:;" onClick="myselfinfo()">个人信息</a></li>
 						<li><a href="#">切换账户</a></li>
 						<li><a href="#">退出</a></li>
-				</ul>
+					</ul>
 			</li>
 				<li id="Hui-msg"> <a href="#" title="消息"><span class="badge badge-danger">1</span><i class="Hui-iconfont" style="font-size:18px">&#xe68a;</i></a> </li>
 				<li id="Hui-skin" class="dropDown right dropDown_hover"> <a href="javascript:;" class="dropDown_A" title="换肤"><i class="Hui-iconfont" style="font-size:18px">&#xe62a;</i></a>
@@ -69,7 +73,7 @@
 			<dt><i class="Hui-iconfont">&#xe616;</i> 公告管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="article-list.html" data-title="公告管理" href="javascript:void(0)">公告管理</a></li>
+					<li><a data-href="articleList.action" data-title="公告管理" href="javascript:void(0)">公告管理</a></li>
 				</ul>
 			</dd>
 		</dl>
@@ -79,34 +83,36 @@
 				<ul>
 					<li><a data-href="product-list.html" data-title="商品管理" href="javascript:void(0)">商品管理</a></li>
 					<li><a data-href="product-category.html" data-title="分类管理" href="javascript:void(0)">分类管理</a></li>
+					<li><a data-href="product-category.html" data-title="商品描述管理" href="javascript:void(0)">商品描述管理</a></li>
+				</ul>
+			</dd>
+		</dl>
+		<dl id="menu-shop">
+			<dt><i class="Hui-iconfont">&#xe66a;</i> 店铺管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="product-category.html" data-title="店铺信息" href="javascript:void(0)">店铺信息</a></li>
 				</ul>
 			</dd>
 		</dl>
 		<dl id="menu-member">
-			<dt><i class="Hui-iconfont">&#xe60d;</i> 会员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dt><i class="Hui-iconfont">&#xe60d;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
 					<li><a data-href="member-list.html" data-title="会员列表" href="javascript:;">会员列表</a></li>
-					<li><a data-href="member-del.html" data-title="删除的会员" href="javascript:;">删除的会员</a></li>
-					<li><a data-href="member-level.html" data-title="等级管理" href="javascript:;">等级管理</a></li>
-					<li><a data-href="member-scoreoperation.html" data-title="积分管理" href="javascript:;">积分管理</a></li>
-					<li><a data-href="member-record-browse.html" data-title="浏览记录" href="javascript:void(0)">浏览记录</a></li>
-					<li><a data-href="member-record-download.html" data-title="下载记录" href="javascript:void(0)">下载记录</a></li>
-					<li><a data-href="member-record-share.html" data-title="分享记录" href="javascript:void(0)">分享记录</a></li>
-			</ul>
-		</dd>
-	</dl>
+					<li><a data-href="#" data-title="订单管理" href="javascript:;">订单管理</a></li>
+				</ul>
+			</dd>
+		</dl>
 		<dl id="menu-admin">
 			<dt><i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="admin-role.html" data-title="角色管理" href="javascript:void(0)">角色管理</a></li>
-					<li><a data-href="admin-permission.html" data-title="权限管理" href="javascript:void(0)">权限管理</a></li>
 					<li><a data-href="admin-list.html" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
-			</ul>
-		</dd>
-	</dl>
-</div>
+				</ul>
+			</dd>
+		</dl>
+	</div>
 </aside>
 <div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>
 <section class="Hui-article-box">
@@ -114,7 +120,7 @@
 		<div class="Hui-tabNav-wp">
 			<ul id="min_title_list" class="acrossTab cl">
 				<li class="active">
-					<span title="我的桌面" data-href="welcome.html">我的桌面</span>
+					<span title="我的桌面" data-href="welcome.action">我的桌面</span>
 					<em></em></li>
 		</ul>
 	</div>
@@ -123,8 +129,8 @@
 	<div id="iframe_box" class="Hui-article">
 		<div class="show_iframe">
 			<div style="display:none" class="loading"></div>
-			<iframe scrolling="yes" frameborder="0" src="welcome.html"></iframe>
-	</div>
+			<iframe scrolling="yes" frameborder="0" src="welcome.action"></iframe>
+		</div>
 </div>
 </section>
 
@@ -132,6 +138,15 @@
 	<ul>
 		<li id="closethis">关闭当前 </li>
 		<li id="closeall">关闭全部 </li>
+	</ul>
+</div>
+
+<div id='info' style = "display : none">
+	<ul>
+		<li><%="姓名：" + admin.getAdRealname()%></li>
+		<li><%="邮箱：" + admin.getAdEmail() %></li>
+		<li><%="手机：" + admin.getAdPhone() %></li>
+		<li><%="角色：" + role %></li>
 	</ul>
 </div>
 <!--_footer 作为公共模版分离出去-->
@@ -167,7 +182,7 @@ function myselfinfo(){
 		maxmin: true,
 		shade:0.4,
 		title: '查看信息',
-		content: '<div>管理员信息</div>'
+		content: $('#info').html()
 	});
 }
 

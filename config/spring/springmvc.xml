@@ -17,15 +17,18 @@
 	<context:component-scan base-package="com.ets.controller" />
 
 	<!-- 转换器工厂 -->
-	<!-- <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean"> 
-		<property name="converters"> <list> <bean class="com.soft.converter.DateConverter"></bean> 
-		</list> </property> </bean> -->
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+	<property name="converters">
+		<list>
+			<bean class="com.ets.common.DateConverter"></bean>
+		</list>
+	</property>
+	</bean>
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
-	
 	
 </beans>          
