@@ -3,9 +3,9 @@ package com.ets.pojo;
 import java.util.Date;
 
 public class Category {
-    private Long categoryId;
+    private Integer categoryId;
 
-    private Long parentId;
+    private Integer parentId;
 
     private String name;
 
@@ -17,7 +17,7 @@ public class Category {
 
     private Date updatedtime;
 
-    public Category(Long categoryId, Long parentId, String name, Integer state, Integer sortOrder, Date createdtime, Date updatedtime) {
+    public Category(Integer categoryId, Integer parentId, String name, Integer state, Integer sortOrder, Date createdtime, Date updatedtime) {
         this.categoryId = categoryId;
         this.parentId = parentId;
         this.name = name;
@@ -31,19 +31,19 @@ public class Category {
         super();
     }
 
-    public Long getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Long categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 
-    public Long getParentId() {
+    public Integer getParentId() {
         return parentId;
     }
 
-    public void setParentId(Long parentId) {
+    public void setParentId(Integer parentId) {
         this.parentId = parentId;
     }
 
@@ -86,4 +86,30 @@ public class Category {
     public void setUpdatedtime(Date updatedtime) {
         this.updatedtime = updatedtime;
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((categoryId == null) ? 0 : categoryId.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Category other = (Category) obj;
+		if (categoryId == null) {
+			if (other.categoryId != null)
+				return false;
+		} else if (!categoryId.equals(other.categoryId))
+			return false;
+		return true;
+	}
+    
 }

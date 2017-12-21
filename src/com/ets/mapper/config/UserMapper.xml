@@ -8,7 +8,7 @@
       <arg column="password" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="realname" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="sex" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="idcard" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="idcard" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="phone" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="birthday" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="email" jdbcType="VARCHAR" javaType="java.lang.String" />
@@ -40,9 +40,9 @@
       createdtime, updatedtime, role, 
       question, answer)
     values (#{userId,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{realname,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{idcard,jdbcType=INTEGER}, 
+      #{realname,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{birthday,jdbcType=TIMESTAMP}, #{email,jdbcType=VARCHAR}, 
-      #{createdtime,jdbcType=TIMESTAMP}, #{updatedtime,jdbcType=TIMESTAMP}, #{role,jdbcType=TINYINT}, 
+      now(),now(), #{role,jdbcType=TINYINT}, 
       #{question,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ets.pojo.User" >
@@ -108,7 +108,7 @@
         #{sex,jdbcType=VARCHAR},
       </if>
       <if test="idcard != null" >
-        #{idcard,jdbcType=INTEGER},
+        #{idcard,jdbcType=VARCHAR},
       </if>
       <if test="phone != null" >
         #{phone,jdbcType=VARCHAR},
@@ -123,7 +123,7 @@
         #{createdtime,jdbcType=TIMESTAMP},
       </if>
       <if test="updatedtime != null" >
-        #{updatedtime,jdbcType=TIMESTAMP},
+        now(),
       </if>
       <if test="role != null" >
         #{role,jdbcType=TINYINT},
@@ -152,7 +152,7 @@
         sex = #{sex,jdbcType=VARCHAR},
       </if>
       <if test="idcard != null" >
-        idcard = #{idcard,jdbcType=INTEGER},
+        idcard = #{idcard,jdbcType=VARCHAR},
       </if>
       <if test="phone != null" >
         phone = #{phone,jdbcType=VARCHAR},
@@ -166,9 +166,7 @@
       <if test="createdtime != null" >
         createdtime = #{createdtime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updatedtime != null" >
-        updatedtime = #{updatedtime,jdbcType=TIMESTAMP},
-      </if>
+        updatedtime = now(),
       <if test="role != null" >
         role = #{role,jdbcType=TINYINT},
       </if>
@@ -187,15 +185,21 @@
       password = #{password,jdbcType=VARCHAR},
       realname = #{realname,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=VARCHAR},
-      idcard = #{idcard,jdbcType=INTEGER},
+      idcard = #{idcard,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       birthday = #{birthday,jdbcType=TIMESTAMP},
       email = #{email,jdbcType=VARCHAR},
       createdtime = #{createdtime,jdbcType=TIMESTAMP},
-      updatedtime = #{updatedtime,jdbcType=TIMESTAMP},
+      updatedtime = now(),
       role = #{role,jdbcType=TINYINT},
       question = #{question,jdbcType=VARCHAR},
       answer = #{answer,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=BIGINT}
   </update>
+  
+  <select id="getUserList" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+  	from tb_user
+  </select>
 </mapper>

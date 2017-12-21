@@ -99,7 +99,7 @@
         createtime = #{createtime,jdbcType=TIMESTAMP},
       </if>
       <if test="updatetime != null" >
-        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+        updatetime = now(),
       </if>
       <if test="state != null" >
         state = #{state,jdbcType=INTEGER},
@@ -113,7 +113,7 @@
       content = #{content,jdbcType=VARCHAR},
       ad_id = #{adId,jdbcType=INTEGER},
       createtime = #{createtime,jdbcType=TIMESTAMP},
-      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      updatetime = now(),
       state = #{state,jdbcType=INTEGER}
     where an_id = #{anId,jdbcType=INTEGER}
   </update>

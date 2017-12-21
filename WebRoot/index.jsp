@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'index.jsp' starting page</title>
+    <title>springmvc上传文件</title>
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="expires" content="0">    
@@ -21,6 +21,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-    This is my JSP page. <br>
-  </body>
+    <form id="jvForm" action="product/upload.action" method="post" enctype="multipart/form-data">
+    	<input type="file" name="upload_file" onchange="uploadPic()">
+    	<input type="submit" value="上传文件">
+    </form>
+</body>
 </html>

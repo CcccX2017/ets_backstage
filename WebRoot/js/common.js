@@ -39,9 +39,9 @@ var ets = ETS = {
 	// 编辑器参数
 	kingEditorParams : {
 		//指定上传文件参数名称
-		filePostName  : "uploadFile",
+		filePostName  : "upload_file",
 		//指定上传文件请求的url。
-		uploadJson : '/pic/upload',
+		uploadJson : 'product/upload.action',
 		//上传类型，分别为image、flash、media、file
 		dir : "image"
 	},
@@ -80,10 +80,10 @@ var ets = ETS = {
     },
     // 初始化图片上传组件
     initPicUpload : function(data){
-    	$(".picFileUpload").each(function(i,e){
+    	$("#picFileUpload").each(function(i,e){
     		var _ele = $(e);
     		_ele.siblings("div.pics").remove();
-    		_ele.after('\
+    		_ele.before('\
     			<div class="pics">\
         			<ul></ul>\
         		</div>');
@@ -92,7 +92,7 @@ var ets = ETS = {
         		var imgs = data.pics.split(",");
         		for(var i in imgs){
         			if($.trim(imgs[i]).length > 0){
-        				_ele.siblings(".pics").find("ul").append("<li><a href='"+imgs[i]+"' target='_blank'><img src='"+imgs[i]+"' width='80' height='50' /></a></li>");
+        				_ele.siblings(".pics").find("ul").append("<li><a href='"+imgs[i]+"' target='_blank'><img src='"+imgs[i]+"' width='80' height='80' /></a></li>");
         			}
         		}
         	}

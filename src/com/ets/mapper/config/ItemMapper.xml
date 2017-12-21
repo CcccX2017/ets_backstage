@@ -10,20 +10,42 @@
       <arg column="num" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="barcode" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="image" jdbcType="VARCHAR" javaType="java.lang.String" />
-      <arg column="category_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="category_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="state" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="createdtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="updatedtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
       <arg column="user_id" jdbcType="BIGINT" javaType="java.lang.Long" />
     </constructor>
   </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ets.pojo.Item" >
+    <constructor >
+      <idArg column="item_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="title" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sell_point" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="price" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="num" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="barcode" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="image" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="category_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="state" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="createdtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="updatedtime" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+      <arg column="user_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <arg column="item_desc" jdbcType="LONGVARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
   <sql id="Base_Column_List" >
     item_id, title, sell_point, price, num, barcode, image, category_id, state, createdtime, 
     updatedtime, user_id
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <sql id="Blob_Column_List" >
+    item_desc
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from tb_item
     where item_id = #{itemId,jdbcType=BIGINT}
   </select>
@@ -35,13 +57,13 @@
     insert into tb_item (item_id, title, sell_point, 
       price, num, barcode, 
       image, category_id, state, 
-      createdtime, updatedtime, user_id
-      )
+      createdtime, updatedtime, user_id, 
+      item_desc)
     values (#{itemId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{sellPoint,jdbcType=VARCHAR}, 
       #{price,jdbcType=BIGINT}, #{num,jdbcType=INTEGER}, #{barcode,jdbcType=VARCHAR}, 
-      #{image,jdbcType=VARCHAR}, #{categoryId,jdbcType=BIGINT}, #{state,jdbcType=INTEGER}, 
-      #{createdtime,jdbcType=TIMESTAMP}, #{updatedtime,jdbcType=TIMESTAMP}, #{userId,jdbcType=BIGINT}
-      )
+      #{image,jdbcType=VARCHAR}, #{categoryId,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, 
+      #{createdtime,jdbcType=TIMESTAMP}, #{updatedtime,jdbcType=TIMESTAMP}, #{userId,jdbcType=BIGINT}, 
+      #{itemDesc,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ets.pojo.Item" >
     insert into tb_item
@@ -82,6 +104,9 @@
       <if test="userId != null" >
         user_id,
       </if>
+      <if test="itemDesc != null" >
+        item_desc,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="itemId != null" >
@@ -106,7 +131,7 @@
         #{image,jdbcType=VARCHAR},
       </if>
       <if test="categoryId != null" >
-        #{categoryId,jdbcType=BIGINT},
+        #{categoryId,jdbcType=INTEGER},
       </if>
       <if test="state != null" >
         #{state,jdbcType=INTEGER},
@@ -119,6 +144,9 @@
       </if>
       <if test="userId != null" >
         #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="itemDesc != null" >
+        #{itemDesc,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -144,7 +172,7 @@
         image = #{image,jdbcType=VARCHAR},
       </if>
       <if test="categoryId != null" >
-        category_id = #{categoryId,jdbcType=BIGINT},
+        category_id = #{categoryId,jdbcType=INTEGER},
       </if>
       <if test="state != null" >
         state = #{state,jdbcType=INTEGER},
@@ -158,7 +186,26 @@
       <if test="userId != null" >
         user_id = #{userId,jdbcType=BIGINT},
       </if>
+      <if test="itemDesc != null" >
+        item_desc = #{itemDesc,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where item_id = #{itemId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ets.pojo.Item" >
+    update tb_item
+    set title = #{title,jdbcType=VARCHAR},
+      sell_point = #{sellPoint,jdbcType=VARCHAR},
+      price = #{price,jdbcType=BIGINT},
+      num = #{num,jdbcType=INTEGER},
+      barcode = #{barcode,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      createdtime = #{createdtime,jdbcType=TIMESTAMP},
+      updatedtime = #{updatedtime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=BIGINT},
+      item_desc = #{itemDesc,jdbcType=LONGVARCHAR}
     where item_id = #{itemId,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ets.pojo.Item" >
@@ -169,7 +216,7 @@
       num = #{num,jdbcType=INTEGER},
       barcode = #{barcode,jdbcType=VARCHAR},
       image = #{image,jdbcType=VARCHAR},
-      category_id = #{categoryId,jdbcType=BIGINT},
+      category_id = #{categoryId,jdbcType=INTEGER},
       state = #{state,jdbcType=INTEGER},
       createdtime = #{createdtime,jdbcType=TIMESTAMP},
       updatedtime = #{updatedtime,jdbcType=TIMESTAMP},

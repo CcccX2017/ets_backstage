@@ -1,5 +1,7 @@
 package com.ets.service.impl;
 
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +11,7 @@ import com.ets.common.ServerResponse;
 import com.ets.mapper.AdminMapper;
 import com.ets.mapper.UserMapper;
 import com.ets.pojo.Admin;
+import com.ets.pojo.User;
 import com.ets.service.IUserService;
 import com.ets.util.MD5Util;
 
@@ -16,6 +19,9 @@ import com.ets.util.MD5Util;
 public class UserServiceImpl implements IUserService {
 	@Autowired
 	private AdminMapper adminMapper;
+	
+	@Autowired
+	private UserMapper userMapper;
 	
 	@Override
 	public ServerResponse<Admin> login(String username, String password) {
@@ -72,5 +78,13 @@ public class UserServiceImpl implements IUserService {
 			return ServerResponse.createByErrorMessage("参数错误");
 		}
 		return ServerResponse.createBySuccessMessage("校验成功");
+	}
+	
+	public List<User> getUserList(){
+		List<User> list = userMapper.getUserList();
+		if(list != null){
+			return list;
+		}
+		return null;
 	}
 }

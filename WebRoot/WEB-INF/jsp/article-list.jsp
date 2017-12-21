@@ -48,14 +48,14 @@
 			<span class="l"><a href="javascript:;" onclick="datadel()"
 				class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i>
 					批量删除</a> <a class="btn btn-primary radius" data-title="发布公告"
-				data-href="article-add.action" onclick="article_add('发布公告','${pageContext.request.contextPath}/article-add.action')"
+				data-href="article-add.action" onclick="choose_list('发布公告','${pageContext.request.contextPath}/article-add.action')"
 				href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 发布公告</a></span>
 		</div>
 		<div class="mt-20">
 		<table class="table table-border table-bordered table-bg table-hover table-sort table-responsive">
 			<thead>
 				<tr class="text-c">
-					<td><input type="checkbox" value="" name="SelectAll"></td>
+					<!-- <td><input type="checkbox" value="" name="SelectAll"></td> -->
 					<th width="80">ID</th>
 					<th>公告标题</th>
 					<th width="80">发布人</th>
@@ -68,7 +68,7 @@
 			<tbody style="text-align: center;">
 				<c:forEach items="${list}" var="val" varStatus="state">
 					<tr class="text-c">
-					<td><input type="checkbox" value='${val.anId}' name="check" id="c_${state.index}" ></td>
+					<%-- <td><input type="checkbox" value='${val.anId}' name="check" id="c_${state.index}" ></td> --%>
 					<td>${val.anId}</td>
 					<td style="text-align: center;" class="text-l">
 						<a style="cursor:pointer;font-size: 16px;"
@@ -121,7 +121,7 @@ $('.table-sort').dataTable({
 	"pagingType":"full_numbers",
 	"aoColumnDefs": [
 	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-	  {"orderable":false,"aTargets":[0,7]}// 不参与排序的列
+	  {"orderable":false,"aTargets":[0,6]}// 不参与排序的列
 	],
 	"aLengthMenu": [[10, 15,25, 50, 100], ["10","15", "25", "50", "100"]]//二组数组，第一组数量，第二组说明文字;
 });

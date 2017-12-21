@@ -39,7 +39,7 @@
 		<div class="row cl">
 			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>公告内容：</label>
 			<div class="formControls col-xs-8 col-sm-9"> 
-				<textarea style="width: 100%;height: 500px;visibility: hidden;" name="content"></textarea> 
+				<textarea style="width: 100%;height: 500px;visibility: hidden;" name="content"></textarea>
 			</div>
 		</div>
 		<div class="row cl">

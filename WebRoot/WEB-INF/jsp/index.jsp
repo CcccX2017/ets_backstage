@@ -33,9 +33,9 @@ String role = String.valueOf(admin.getAdRole()).equals("3")?"超级管理员":"�
 				<ul class="cl">
 					<li class="dropDown dropDown_hover"><a href="javascript:;" class="dropDown_A"><i class="Hui-iconfont">&#xe600;</i> 新增 <i class="Hui-iconfont">&#xe6d5;</i></a>
 						<ul class="dropDown-menu menu radius box-shadow">
-							<li><a href="javascript:;" onclick="article_add('添加公告','article-add.html','','510')"><i class="Hui-iconfont">&#xe616;</i> 公告</a></li>
-							<li><a href="javascript:;" onclick="member_add('添加用户','member-add.html','','510')"><i class="Hui-iconfont">&#xe60d;</i> 用户</a></li>
-							<li><a href="javascript:;" onclick="admin_add('添加管理员','member-add.html','','510')"><i class="Hui-iconfont">&#xe62d;</i> 管理员</a></li>
+							<li><a href="javascript:;" onclick="article_add('添加公告','article-add.action','','510')"><i class="Hui-iconfont">&#xe616;</i> 公告</a></li>
+							<li><a href="javascript:;" onclick="member_add('添加用户','member-add.action','','510')"><i class="Hui-iconfont">&#xe60d;</i> 用户</a></li>
+							<li><a href="javascript:;" onclick="admin_add('添加管理员','member-add.action','','510')"><i class="Hui-iconfont">&#xe62d;</i> 管理员</a></li>
 						</ul>
 				</li>
 			</ul>
@@ -81,9 +81,9 @@ String role = String.valueOf(admin.getAdRole()).equals("3")?"超级管理员":"�
 			<dt><i class="Hui-iconfont">&#xe620;</i> 商品管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="product-list.html" data-title="商品管理" href="javascript:void(0)">商品管理</a></li>
-					<li><a data-href="product-category.html" data-title="分类管理" href="javascript:void(0)">分类管理</a></li>
-					<li><a data-href="product-category.html" data-title="商品描述管理" href="javascript:void(0)">商品描述管理</a></li>
+					<li><a data-href="product-list.action" data-title="商品管理" href="javascript:void(0)">商品管理</a></li>
+					<li><a data-href="product-category.action" data-title="分类管理" href="javascript:void(0)">分类管理</a></li>
+					<li><a data-href="product-category.action" data-title="商品描述管理" href="javascript:void(0)">商品描述管理</a></li>
 				</ul>
 			</dd>
 		</dl>
@@ -91,7 +91,7 @@ String role = String.valueOf(admin.getAdRole()).equals("3")?"超级管理员":"�
 			<dt><i class="Hui-iconfont">&#xe66a;</i> 店铺管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="product-category.html" data-title="店铺信息" href="javascript:void(0)">店铺信息</a></li>
+					<li><a data-href="product-category.action" data-title="店铺信息" href="javascript:void(0)">店铺信息</a></li>
 				</ul>
 			</dd>
 		</dl>
@@ -99,7 +99,7 @@ String role = String.valueOf(admin.getAdRole()).equals("3")?"超级管理员":"�
 			<dt><i class="Hui-iconfont">&#xe60d;</i> 用户管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="member-list.html" data-title="会员列表" href="javascript:;">会员列表</a></li>
+					<li><a data-href="userList.action" data-title="会员列表" href="javascript:;">会员列表</a></li>
 					<li><a data-href="#" data-title="订单管理" href="javascript:;">订单管理</a></li>
 				</ul>
 			</dd>
@@ -108,7 +108,7 @@ String role = String.valueOf(admin.getAdRole()).equals("3")?"超级管理员":"�
 			<dt><i class="Hui-iconfont">&#xe62d;</i> 管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
 			<dd>
 				<ul>
-					<li><a data-href="admin-list.html" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
+					<li><a data-href="admin-list.action" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
 				</ul>
 			</dd>
 		</dl>

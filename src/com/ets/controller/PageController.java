@@ -18,13 +18,18 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ets.common.Const;
 import com.ets.pojo.Admin;
 import com.ets.pojo.Announcement;
+import com.ets.pojo.User;
 import com.ets.service.IAnnouncementService;
+import com.ets.service.IUserService;
 
 
 @Controller
 public class PageController {
 	@Autowired
 	private IAnnouncementService announcementService;
+	
+	@Autowired
+	private IUserService userService;
 	
 	@RequestMapping("/admin")
 	public String showIndex(HttpSession session) {
@@ -49,15 +54,21 @@ public class PageController {
 		if(request != null){
 			int id = Integer.parseInt(request.getParameter("id"));
 			String author = request.getParameter("author");
-			/*String title = request.getParameter("title");
-			String createtime = request.getParameter("createtime");
-			String updatetime = request.getParameter("updatetime");
-			System.out.println(id + "\t" + title + "\t" + author + "\t" + createtime + "\t" + updatetime);*/
 			Announcement announcement = announcementService.getContentById(id);
 			Admin admin = new Admin();admin.setAdUsername(author);
 			announcement.setAdmin(admin);
 			request.setAttribute("announcement",announcement);
 			return "article-content";
+		}
+		return null;
+	}
+	
+	@RequestMapping("/userList")
+	public String UserList(HttpServletRequest request){
+		if(request != null){
+			List<User> list = userService.getUserList();
+			request.setAttribute("user", list);
+			return "member-list";
 		}
 		return null;
 	}

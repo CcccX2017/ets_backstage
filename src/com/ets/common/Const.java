@@ -6,6 +6,7 @@ public class Const {
 	public static final String EMAIL = "email";
 	public static final String ADMIN_USERNAME = "ad_username";
 	public static final String ADMIN_EMAIL = "ad_email";
+	public static final String FTP_PATH = "10.88.86.57";
 	
 	public interface Role{
 		int ROLE_CUSTOMER = 0; //普通用户

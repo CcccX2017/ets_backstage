@@ -13,7 +13,7 @@ public class User {
 
     private String sex;
 
-    private Integer idcard;
+    private String idcard;
 
     private String phone;
 
@@ -31,7 +31,7 @@ public class User {
 
     private String answer;
 
-    public User(Long userId, String username, String password, String realname, String sex, Integer idcard, String phone, Date birthday, String email, Date createdtime, Date updatedtime, Byte role, String question, String answer) {
+    public User(Long userId, String username, String password, String realname, String sex, String idcard, String phone, Date birthday, String email, Date createdtime, Date updatedtime, Byte role, String question, String answer) {
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -92,12 +92,12 @@ public class User {
         this.sex = sex == null ? null : sex.trim();
     }
 
-    public Integer getIdcard() {
+    public String getIdcard() {
         return idcard;
     }
 
-    public void setIdcard(Integer idcard) {
-        this.idcard = idcard;
+    public void setIdcard(String idcard) {
+        this.idcard = idcard == null ? null : idcard.trim();
     }
 
     public String getPhone() {

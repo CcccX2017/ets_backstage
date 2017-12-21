@@ -17,7 +17,7 @@ public class Item {
 
     private String image;
 
-    private Long categoryId;
+    private Integer categoryId;
 
     private Integer state;
 
@@ -27,7 +27,9 @@ public class Item {
 
     private Long userId;
 
-    public Item(Long itemId, String title, String sellPoint, Long price, Integer num, String barcode, String image, Long categoryId, Integer state, Date createdtime, Date updatedtime, Long userId) {
+    private String itemDesc;
+
+    public Item(Long itemId, String title, String sellPoint, Long price, Integer num, String barcode, String image, Integer categoryId, Integer state, Date createdtime, Date updatedtime, Long userId, String itemDesc) {
         this.itemId = itemId;
         this.title = title;
         this.sellPoint = sellPoint;
@@ -40,6 +42,7 @@ public class Item {
         this.createdtime = createdtime;
         this.updatedtime = updatedtime;
         this.userId = userId;
+        this.itemDesc = itemDesc;
     }
 
     public Item() {
@@ -102,11 +105,11 @@ public class Item {
         this.image = image == null ? null : image.trim();
     }
 
-    public Long getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Long categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 
@@ -140,5 +143,13 @@ public class Item {
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public String getItemDesc() {
+        return itemDesc;
+    }
+
+    public void setItemDesc(String itemDesc) {
+        this.itemDesc = itemDesc == null ? null : itemDesc.trim();
     }
 }

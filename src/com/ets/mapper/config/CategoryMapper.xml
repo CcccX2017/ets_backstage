@@ -3,8 +3,8 @@
 <mapper namespace="com.ets.mapper.CategoryMapper" >
   <resultMap id="BaseResultMap" type="com.ets.pojo.Category" >
     <constructor >
-      <idArg column="category_id" jdbcType="BIGINT" javaType="java.lang.Long" />
-      <arg column="parent_id" jdbcType="BIGINT" javaType="java.lang.Long" />
+      <idArg column="category_id" jdbcType="BIGINT" javaType="java.lang.Integer" />
+      <arg column="parent_id" jdbcType="BIGINT" javaType="java.lang.Integer" />
       <arg column="name" jdbcType="VARCHAR" javaType="java.lang.String" />
       <arg column="state" jdbcType="INTEGER" javaType="java.lang.Integer" />
       <arg column="sort_order" jdbcType="INTEGER" javaType="java.lang.Integer" />
@@ -15,13 +15,13 @@
   <sql id="Base_Column_List" >
     category_id, parent_id, name, state, sort_order, createdtime, updatedtime
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from tb_item_cat
     where category_id = #{categoryId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tb_item_cat
     where category_id = #{categoryId,jdbcType=BIGINT}
   </delete>
@@ -30,8 +30,8 @@
       state, sort_order, createdtime, 
       updatedtime)
     values (#{categoryId,jdbcType=BIGINT}, #{parentId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, 
-      #{state,jdbcType=INTEGER}, #{sortOrder,jdbcType=INTEGER}, #{createdtime,jdbcType=TIMESTAMP}, 
-      #{updatedtime,jdbcType=TIMESTAMP})
+      #{state,jdbcType=INTEGER}, #{sortOrder,jdbcType=INTEGER}, now(), 
+      now())
   </insert>
   <insert id="insertSelective" parameterType="com.ets.pojo.Category" >
     insert into tb_item_cat
@@ -75,10 +75,10 @@
         #{sortOrder,jdbcType=INTEGER},
       </if>
       <if test="createdtime != null" >
-        #{createdtime,jdbcType=TIMESTAMP},
+        now(),
       </if>
       <if test="updatedtime != null" >
-        #{updatedtime,jdbcType=TIMESTAMP},
+        now(),
       </if>
     </trim>
   </insert>
@@ -86,7 +86,7 @@
     update tb_item_cat
     <set >
       <if test="parentId != null" >
-        parent_id = #{parentId,jdbcType=BIGINT},
+        parent_id = #{parentId,jdbcType=INTEGER},
       </if>
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
@@ -100,9 +100,7 @@
       <if test="createdtime != null" >
         createdtime = #{createdtime,jdbcType=TIMESTAMP},
       </if>
-      <if test="updatedtime != null" >
-        updatedtime = #{updatedtime,jdbcType=TIMESTAMP},
-      </if>
+       updatedtime = now(),
     </set>
     where category_id = #{categoryId,jdbcType=BIGINT}
   </update>
@@ -113,7 +111,27 @@
       state = #{state,jdbcType=INTEGER},
       sort_order = #{sortOrder,jdbcType=INTEGER},
       createdtime = #{createdtime,jdbcType=TIMESTAMP},
-      updatedtime = #{updatedtime,jdbcType=TIMESTAMP}
+      updatedtime = now()
     where category_id = #{categoryId,jdbcType=BIGINT}
   </update>
+  
+  <select id="selectCategoryChildrenByParentId" resultMap="BaseResultMap" parameterType="int">
+  	select
+  	<include refid="Base_Column_List" />
+  	from tb_item_cat
+  	where parent_id = #{parentId}
+  </select>
+  
+  <select id="selectCategory" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List" />
+  	from tb_item_cat
+  </select>
+  
+  <delete id="batchDeleteById" parameterType="java.util.List">
+  	delete from tb_item_cat where category_id in
+  	<foreach collection="list" item="id" open="(" close=")"  separator=",">
+  		${id.categoryId}
+  	</foreach>
+  </delete>
 </mapper>
